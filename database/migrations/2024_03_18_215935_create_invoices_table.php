@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('type'); //b, c , p;
             $table->decimal('value', 10, 2);
+            $table->boolean('paid');
             $table->datetime('payment_date')->nullable();
             $table->timestamps();
         });
