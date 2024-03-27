@@ -16,17 +16,6 @@ class InvoiceController extends Controller
         return InvoiceResource::collection(Invoice::with('user')->get());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -51,17 +40,11 @@ class InvoiceController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Invoice $invoice)
     {
         return new InvoiceResource($invoice);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Invoice $invoice)
     {
         $validator = Validator::make($request->all(), [
@@ -93,9 +76,6 @@ class InvoiceController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Invoice $invoice)
     {
         $deleted = $invoice->delete();
