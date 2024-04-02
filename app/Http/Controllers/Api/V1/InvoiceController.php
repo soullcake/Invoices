@@ -15,6 +15,7 @@ class InvoiceController extends Controller
     {
         $this->middleware('auth:sanctum')->only(['store', 'update']);
     }
+
     public function index()
     {
         return InvoiceResource::collection(Invoice::with('user')->get());
@@ -22,6 +23,10 @@ class InvoiceController extends Controller
 
     public function store(Request $request)
     {
+        if(!auth()->user()->tokenCan('invoice-store')) {
+            return response()->json(['message' => 'Nao autorizado']);
+        }
+
         $validator = Validator::make($request->all(), [
             'user_id' => 'required',
             'type' => 'required|max:1',
@@ -51,6 +56,10 @@ class InvoiceController extends Controller
 
     public function update(Request $request, Invoice $invoice)
     {
+        if(!auth()->user()->tokenCan('invoice-update')) {
+            return response()->json(['message' => 'Nao autorizado']);
+        }
+        
         $validator = Validator::make($request->all(), [
             'user_id' => 'required',
             'type' => 'required|max:1|in:' . implode(',', ['b', 'c', 'p']),
