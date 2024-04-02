@@ -12,7 +12,7 @@ class AuthController extends Controller
         if(Auth::attempt($request->only('email', 'password'))) {
             return response()->json([
                 'message'=>'Autorizado', 
-                'token' => $request->user()->createToken('invoice')->plainTextToken
+                'token' => $request->user()->createToken('invoice', ['invoice-store', 'invoice-update'])->plainTextToken
             ]);
         }
 
